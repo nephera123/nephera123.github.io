@@ -1,229 +1,188 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+        <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:300,400,400i|Nunito:300,300i" rel="stylesheet">
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="shortcut icon" type="image/png" href="img/favicon.png">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Shadows+Into+Light+Two&display=swap" rel="stylesheet">
 
-    <title>Art Gallery</title>
-  </head>
-  <nav>
-    <div class="logo">
-   Art Gallery
-    </div>
-    <div class="links">
-      <!--<a href="">Contact</a>-->
-    </div>
-  </nav>
-    <script>
-        const nav = document.querySelector("nav");
-const supportPageOffset = window.pageXOffset !== undefined;
-const isCSS1Compat = (document.compatMode || "") === "CSS1Compat";
 
-let previousScrollPosition = 0;
+        <title>CSS Grids Gallery</title>
+       
+    </head>
+    <nav>
+        <div class="logo">
+          Art Gallery
+        </div>
+        <div class="links">
+          <a href="">About</a>
+          <a href="">Contact</a>
+        
+        </div>
+      </nav>
+<main>
+    <style>
 
-const isScrollingDown = () => {
-  let scrolledPosition = supportPageOffset
-    ? window.pageYOffset
-    : isCSS1Compat
-    ? document.documentElement.scrollTop
-    : document.body.scrollTop;
-  let isScrollDown;
-
-  if (scrolledPosition > previousScrollPosition) {
-    isScrollDown = true;
-  } else {
-    isScrollDown = false;
-  }
-  previousScrollPosition = scrolledPosition;
-  return isScrollDown;
-};
-
-const handleNavScroll = () => {
-  if (isScrollingDown() && !nav.contains(document.activeElement)) {
-    nav.classList.add("scroll-down");
-    nav.classList.remove("scroll-up");
-  } else {
-    nav.classList.add("scroll-up");
-    nav.classList.remove("scroll-down");
-  }
-};
-
-var throttleTimer;
-
-const throttle = (callback, time) => {
-  if (throttleTimer) return;
-
-  throttleTimer = true;
-  setTimeout(() => {
-    callback();
-    throttleTimer = false;
-  }, time);
-};
-
-const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-
-window.addEventListener("scroll", () => {
-  if (mediaQuery && !mediaQuery.matches) {
-    throttle(handleNavScroll, 250);
-  }
-});
-    </script>
-      
-     <style>
-         nav {
-  position: sticky;
+nav {
+  position:relative;
   top: 0;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   padding: 1.5rem 2rem;
-  background-color: #0000005b;
-  transition: top 500ms ease-in-out;
-  font-family:'Dancing Script', cursive;
+  background-color: #00000000;
+  font-size: 25px;
 }
-
-nav.scroll-up,
-nav:focus-within {
-  top: 0;
-}
-
-nav.scroll-down {
-  top: -100%;
-}
-
-.links {
-  display: flex;
-  margin: 0 -1em;
-}
-
-.links a {
-  display: inline-block;
-  margin: 0 1em;
-}
-
-.logo {
-  font-weight: bold;
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
-  color: #ffffff;
-  
-}
-
 nav a {
-  color: #ffffff;
+  color: #0f0f0f;
   text-decoration: none;
-  font-size: 0.9rem;
+  font-size: 15px;
   text-transform: uppercase;
   letter-spacing: 0.2em;
 }
 
-
-
-
-
-
-
-
-        body{
-          background-color: #ffecef;
-        }
-
-        .row {
-  display: flex;
-  flex-wrap: wrap;
-  padding: 0 4px;
+        *,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit; 
 }
 
-/* Create four equal columns that sits next to each other */
-.column {
-  flex: 25%;
-  max-width: 25%;
-  padding: 0 4px;
+html {
+  box-sizing: border-box;
+  font-size: 62.5%; 
 }
 
-.column img {
-  margin-top: 8px;
-  vertical-align: middle;
+body {
+    font-family: 'Shadows Into Light Two', cursive;
+  color: #333;
+  font-weight: 300;
+  line-height: 1.6; 
+}
+
+.container {
+  width: auto;
+  margin: 2rem auto; 
+
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(8, 5vw);
+  grid-gap: 1.5rem; 
+}
+
+.gallery__img {
   width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block; 
 }
 
-/* Responsive layout - makes a two column-layout instead of four columns */
-@media screen and (max-width: 800px) {
-  .column {
-    flex: 50%;
-    max-width: 50%;
-  }
+.gallery__item--1 {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  grid-row-start: 1;
+  grid-row-end: 3;
+
+  /** Alternative Syntax **/
+  /* grid-column: 1 / span 2;  */
+  /* grid-row: 1 / span 2; */
 }
 
-/* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
-@media screen and (max-width: 600px) {
-  .column {
-    flex: 100%;
-    max-width: 100%;
-  }
+.gallery__item--2 {
+  grid-column-start: 3;
+  grid-column-end: 5;
+  grid-row-start: 1;
+  grid-row-end: 3;
+
+  /** Alternative Syntax **/
+  /* grid-column: 3 / span 2;  */
+  /* grid-row: 1 / span 2; */
 }
 
-.site-footer{
-text-align: center;
-font-size: 15px;
-color:azure;
+.gallery__item--3 {
+  grid-column-start: 5;
+  grid-column-end: 9;
+  grid-row-start: 1;
+  grid-row-end: 6;
+
+  /** Alternative Syntax **/
+  /* grid-column: 5 / span 4;
+  grid-row: 1 / span 5; */
 }
+
+.gallery__item--4 {
+  grid-column-start: 1;
+  grid-column-end: 5;
+  grid-row-start: 3;
+  grid-row-end: 6;
+
+  /** Alternative Syntax **/
+  /* grid-column: 1 / span 4;  */
+  /* grid-row: 3 / span 3; */
+}
+
+.gallery__item--5 {
+  grid-column-start: 1;
+  grid-column-end: 5;
+  grid-row-start: 6;
+  grid-row-end: 9;
+
+  /** Alternative Syntax **/
+  /* grid-column: 1 / span 4; */
+  /* grid-row: 6 / span 3; */
+}
+
+.gallery__item--6 {
+  grid-column-start: 5;
+  grid-column-end: 9;
+  grid-row-start: 6;
+  grid-row-end: 9;
+}
+
+footer{
+    font-size:15px;
+    text-align:center;
+}
+
+
     </style>
     
-   
-
-  <body>
-
-  
-    <div class="row">
-        <div class="column">
-          <img src="https://i.pinimg.com/564x/20/8d/3c/208d3c89cb8720fcf4c931f3a1cf6006.jpg">
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREoFzslVxRYGDHSoLdvpoTBmeipFNDN222Vw&usqp=CAU">
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMRTYWBtPPM45ocWJuHNq1-xjD_6yYBqJgrQ&usqp=CAU">
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2O21PIT3qs78UoJADLGLN_I-HzJCYgw04cg&usqp=CAU">
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPd59GDpFwRvOtj0dUTMB41fLg9O15t2pXmA&usqp=CAU">
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzx__blVU5FWJAUCU4d9-E095_n3Fgy1tuxA&usqp=CAU">
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_Byyi6Q9m5RmtlUhrD41n20ME6YMCRpC9eQ&usqp=CAU">
+    <body>
+       
+        <div class="container">
+            <div class="gallery">
+                <figure class="gallery__item gallery__item--1">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgXHPUQp36BCUbqhmGuvNhIioa2Bb0qG80Lw&usqp=CAU" alt="Gallery image 1" class="gallery__img">
+                </figure>
+                <figure class="gallery__item gallery__item--2">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTv5dUofNzCR4VikAAwkWYOr4i0CCp1To3UjA&usqp=CAU" alt="Gallery image 2" class="gallery__img">
+                </figure>
+                <figure class="gallery__item gallery__item--3">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9R6WVd7lIJePzBBD2MiZRy511oh9ONh0H_w&usqp=CAU" alt="Gallery image 3" class="gallery__img">
+                </figure>
+                <figure class="gallery__item gallery__item--4">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSp0muPukss1r9gEPUjrg9hB227dRT6gpXsow&usqp=CAU" alt="Gallery image 4" class="gallery__img">
+                </figure>
+                <figure class="gallery__item gallery__item--5">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRs2YwxJcihmobWJbZxAqhFgzv6oXVQ1mWy2Q&usqp=CAU" alt="Gallery image 5" class="gallery__img">
+                </figure>
+                <figure class="gallery__item gallery__item--6">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQrQpRHjVNgr0HmbBYZ6w9yHLKBNQXn2q9stg&usqp=CAU" alt="Gallery image 6" class="gallery__img">
+                </figure>
+            </div>
         </div>
-        <div class="column">
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQyIpAt8211_DCp5rMAVhu-RQIe9gTu_r9piw&usqp=CAU">
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmp0HjWqP5_2R82Dhg6O-oulDC40nnoR_6eA&usqp=CAU">
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSzehy7BWjkluj8hj5wEtB9asMf-tZ8lWiyg&usqp=CAU">
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4yKLNPR6GkYMiXhmBykPpMJPdSdu2UI-0uA&usqp=CAU">
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRW8k20XZwmz-z37-wNaK4co1GhsJwNHlX1zg&usqp=CAU">
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzMo1x4rmOOYY_W-cjzSbl_WZUBkPFSzs4rg&usqp=CAU">
-        </div>
-        <div class="column">
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQinXnmjAe0EfXjKRr8uTEqUxhgSSZH6Zy8Og&usqp=CAU">
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQaGxbg21z0M2r-_RRVgZVcleoEkEG3Dd5a7g&usqp=CAU">
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnGU3ySK0V_lFinI-cFiLeSLIRpLbXoJ1k8g&usqp=CAU">
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqhYLEyoUiYmBuLLHW46PsB6iQ04S6rIj-dQ&usqp=CAU">
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQfaw_YxzoXrXVleIt4FnHXnD48GknuJoWoyA&usqp=CAU">
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzx__blVU5FWJAUCU4d9-E095_n3Fgy1tuxA&usqp=CAU">
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_Byyi6Q9m5RmtlUhrD41n20ME6YMCRpC9eQ&usqp=CAU">
-        </div>
-        <div class="column">
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHi297bLDYT34AuB3pQwNgcoN7HiE4FLkNDw&usqp=CAU">
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOOwrEjJXFS009mvqyoPa0VpkFgyd7hbaO2A&usqp=CAU">
-          <img src="https://thumbs.dreamstime.com/b/spring-nature-blossom-web-banner-header-24752960.jpg">
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQsRzvbZBMPOt3RzQB8VgMZ3X0wcPTi2Yqu0w&usqp=CAU">
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTrwwH1wyBztwGpZwyDBcowqqoGWfqZyWhgCA&usqp=CAU">
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmIS9MAOKSIE0QiwXUR3sq9cqUstWJd8utLg&usqp=CAU">
-        </div>
-      </div> 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
-
-    <!-- Option 2: Separate Popper and Bootstrap JS -->
-    <!--
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
-    -->
-    <footer class="site-footer">
-        <p>-Built by Nephera-</p>
-  </footer>
-  </body>
+    </body>
+    </main>
+    <footer>
+       <p> ~Designed by Nephera~</p>
+    </footer>
 </html>
